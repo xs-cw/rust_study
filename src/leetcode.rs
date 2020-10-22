@@ -14,6 +14,29 @@ impl Solution {
             }
         }
     }
+    pub fn is_long_pressed_name(name: String, typed: String) -> bool {
+        let (name, typed) = (name.into_bytes(), typed.into_bytes());
+        let mut i = 0;
+        for c in typed {
+            if i >= name.len(){
+                i = name.len() -1;
+            };
+            if c == name[i] {
+                i += 1;
+                continue;
+            } else {
+                if i == 0 {
+                    return false;
+                }
+                if c == name[i - 1] {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+        }
+        i == name.len()
+    }
 }
 fn main() {
     print!(
