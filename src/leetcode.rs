@@ -1,7 +1,7 @@
-use rocket::http::ext::IntoCollection;
 use std::collections::HashMap;
 
-struct Solution {}
+
+pub struct Solution {}
 
 impl Solution {
     // 重复数字
@@ -83,20 +83,27 @@ impl Solution {
         }
         res
     }
-}
-
-
-fn main() {
-    let a = [6, 2, 7, 3];
-    println!("{:?}", Solution::decode(Vec::from(a), 4));
-    // the sum of all of the elements of the array
-    let sum = a.iter().fold(0, |acc, &x| {
-        println!("{},{}", acc, x);
-        acc + x
-    });
-    println!("{}", sum);
-    print!(
-        "{}",
-        Solution::single_number(vec![111, 2, 3, 3, 3, 2, 2])
-    );
+    pub fn z_change(s: String, num_rows: i32) -> String {
+        let len = s.chars().count() as i32;
+        let s = s.as_bytes();
+        let mut res = Vec::with_capacity(num_rows as usize);
+        for r in 0..num_rows {
+            let mut i = r;
+            loop {
+                if i >= len {
+                    break;
+                }
+                res.push(s[i as usize]);
+                if r != num_rows - 1 && r != 0 {
+                    let next = i + (num_rows - 1) * 2 - 2 * r;
+                    if next >= len {
+                        break;
+                    }
+                    res.push(s[next as usize]);
+                }
+                i += (num_rows - 1) * 2;
+            }
+        }
+        String::from_utf8(res).unwrap()
+    }
 }
